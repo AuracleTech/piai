@@ -30,7 +30,7 @@ git clone https://github.com/AuracleTech/piai.git
 3. Navigate to the project directory
 
 ```shell
-cd bard
+cd piai
 ```
 
 4. Install OpenAi Whisper
