@@ -1,0 +1,22 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "python: run main",
+			"command": "python",
+			"args": ["src/main.py"],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"echo": false,
+				"showReuseMessage": false,
+				"revealProblems": "onProblem"
+			}
+		}
+	]
+}
