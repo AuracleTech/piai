@@ -46,8 +46,8 @@ try:
     if not os.path.exists(config.RECORDINGS_PATH):
         os.makedirs(config.RECORDINGS_PATH)
 
-    print("Waiting 5s page loading...")
-    time.sleep(5)
+    print("Waiting 4s page loading...")
+    time.sleep(4)
 
     print("Starting threads...")
     thread_interpret.start()
