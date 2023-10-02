@@ -1,4 +1,4 @@
-![Command](https://cdn.dribbble.com/users/2665918/screenshots/11996965/media/87e5b5088f4d3a7f1ddef27db699410b.gif)
+https://github.com/AuracleTech/piai/assets/40531871/b0670958-27be-44ea-9f16-6185979dcf02
 
 # Hands Free Pi AI
 
