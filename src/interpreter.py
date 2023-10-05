@@ -74,20 +74,30 @@ def interpret(transcript_queue):
 
         # If it is a question, ask pi ai
         # if is_question == "Y" or is_question == "y":
-        try:
-            textarea.clear()
-            textarea.send_keys(transcript)
-            textarea.send_keys(Keys.RETURN)
-        except StaleElementReferenceException:
-            print("Element is not attached to the page document")
-            textarea = fetch_textarea(driver)
-        except NoSuchElementException:
-            print("Element does not exist anymore on the DOM")
-            textarea = fetch_textarea(driver)
-        except NoSuchWindowException:
-            print("Restart the app the tabs were messed up with")
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
+        RETRY_DELAY = 2
+        retry = False
+        while True:
+            try:
+                if retry == True:
+                    print("Retrying in {}s...".format(RETRY_DELAY))
+                    time.sleep(RETRY_DELAY)
+
+                retry = True
+                textarea.clear()
+                textarea.send_keys(transcript)
+                time.sleep(0.2)
+                textarea.send_keys(Keys.RETURN)
+                break
+            except StaleElementReferenceException:
+                print("Element is not attached to the page document")
+                textarea = fetch_textarea(driver)
+            except NoSuchElementException:
+                print("Element does not exist anymore on the DOM")
+                textarea = fetch_textarea(driver)
+            except NoSuchWindowException:
+                print("Restart the app. Tabs were messed up with the handle is lost")
+            except:
+                print("Unexpected error:", sys.exc_info()[0])
 
     print("Closing browser...")
     del textarea
