@@ -5,23 +5,8 @@ import recorder
 import config
 import os
 import time
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from queue import Queue
 
-# Start the browser
-driver = webdriver.Chrome()
-driver.get("https://pi.ai/talk")
-textarea = WebDriverWait(driver, 30).until(
-    EC.visibility_of_element_located(
-        (
-            By.CSS_SELECTOR,
-            "textarea.block.w-full.resize-none.overflow-y-hidden.whitespace-pre-wrap.bg-transparent.outline-none.placeholder\\:text-brand-gray-400.font-serif.font-normal.text-body-chat-m.lg\\:text-body-chat-l",
-        )
-    )
-)
 
 # Create queues
 recordings_queue = Queue()
@@ -32,7 +17,7 @@ thread_transcribe = threading.Thread(
     target=transcriber.transcribe, args=(recordings_queue, transcript_queue)
 )
 thread_interpret = threading.Thread(
-    target=interpreter.interpret, args=(transcript_queue, textarea)
+    target=interpreter.interpret, args=(transcript_queue,)
 )
 
 
@@ -46,9 +31,6 @@ try:
     if not os.path.exists(config.RECORDINGS_PATH):
         os.makedirs(config.RECORDINGS_PATH)
 
-    print("Waiting 4s page loading...")
-    time.sleep(4)
-
     print("Starting threads...")
     thread_interpret.start()
     thread_transcribe.start()
@@ -56,9 +38,6 @@ try:
 
 except KeyboardInterrupt:
     print("Stopping...")
-
-    print("Stopping browser...")
-    driver.quit()
 
     print("Clearing queues...")
     clear_queue(recordings_queue)

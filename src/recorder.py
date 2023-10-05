@@ -7,8 +7,6 @@ import wave
 
 
 def listen(recordings_path, recordings_queue):
-    print("Listening...")
-
     # Matching whisper settings
     FORMAT = pyaudio.paInt16
     # OpenAI whisper uses 1 channel by default
@@ -30,6 +28,7 @@ def listen(recordings_path, recordings_queue):
     audio = pyaudio.PyAudio()
 
     # Open microphone stream
+    print("Listening...")
     stream = audio.open(
         format=FORMAT,
         channels=CHANNELS,
