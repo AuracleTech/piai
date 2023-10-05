@@ -13,9 +13,11 @@ from selenium.common.exceptions import NoSuchWindowException
 import time
 import sys
 
+TEXTAREA_MAX_TIMEOUT = 99999
+
 
 def fetch_textarea(driver):
-    return WebDriverWait(driver, 30).until(
+    return WebDriverWait(driver, TEXTAREA_MAX_TIMEOUT).until(
         EC.visibility_of_element_located(
             (
                 By.CSS_SELECTOR,
